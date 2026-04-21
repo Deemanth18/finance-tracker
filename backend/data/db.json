@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "deemanth",
+      "password": "$2a$10$rSotwJCsdIPLCLggmFkmBOou1Eepu7XrTzXkgXeI9DuehKTHNkYFe",
+      "createdAt": "2026-04-16T17:16:02.304Z"
+    },
+    {
+      "id": 2,
+      "username": "deemanth1",
+      "password": "$2a$10$dqG9SsWooWei2cnFqZeSYOjJUCsPF1LDo.Gvuac2NADRd/Je3kMkO",
+      "createdAt": "2026-04-16T17:21:59.002Z"
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "amount": 2000,
+      "category": "Food",
+      "userId": 2,
+      "createdAt": "2026-04-16T17:27:36.084Z"
+    },
+    {
+      "id": 2,
+      "amount": 3000,
+      "category": "Travel",
+      "userId": 2,
+      "createdAt": "2026-04-16T17:43:54.408Z"
+    }
+  ],
+  "_nextUserId": 3,
+  "_nextExpenseId": 3
+}
