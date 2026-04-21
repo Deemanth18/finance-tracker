@@ -29,6 +29,10 @@ class ExpenseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final dropdownTextColor = FintechPalette.primaryTextFor(context);
+    final dropdownMenuColor = isDark ? const Color(0xFF103D2E) : const Color(0xFFFCFFFD);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(28, 10, 28, 28),
       child: Column(
@@ -119,10 +123,19 @@ class ExpenseScreen extends StatelessWidget {
                       width: 220,
                       child: DropdownButtonFormField<String>(
                         value: filterCategory,
+                        dropdownColor: dropdownMenuColor,
+                        iconEnabledColor: FintechPalette.secondaryTextFor(context),
+                        style: TextStyle(
+                          color: dropdownTextColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                         items: const ['All', 'Food', 'Travel', 'Shopping', 'Other']
                             .map((item) => DropdownMenuItem<String>(
                                   value: item,
-                                  child: Text(item),
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(color: dropdownTextColor),
+                                  ),
                                 ))
                             .toList(),
                         onChanged: (value) {
@@ -265,6 +278,10 @@ class ExpenseFormSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final dropdownTextColor = FintechPalette.primaryTextFor(context);
+    final dropdownMenuColor = isDark ? const Color(0xFF103D2E) : const Color(0xFFFCFFFD);
+
     return Padding(
       padding: EdgeInsets.only(
         left: 20,
@@ -308,11 +325,20 @@ class ExpenseFormSheet extends StatelessWidget {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               value: selectedCategory,
+              dropdownColor: dropdownMenuColor,
+              iconEnabledColor: FintechPalette.secondaryTextFor(context),
+              style: TextStyle(
+                color: dropdownTextColor,
+                fontWeight: FontWeight.w600,
+              ),
               items: const ['Food', 'Travel', 'Shopping', 'Other']
                   .map(
                     (item) => DropdownMenuItem<String>(
                       value: item,
-                      child: Text(item),
+                      child: Text(
+                        item,
+                        style: TextStyle(color: dropdownTextColor),
+                      ),
                     ),
                   )
                   .toList(),
