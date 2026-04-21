@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../ui/components/fintech_components.dart';
 import '../utils/helpers.dart';
 import 'expense_screen.dart';
 
@@ -34,13 +35,13 @@ class ReportsScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(28),
               gradient: const LinearGradient(
-                colors: [Color(0xFF312E81), Color(0xFF7C3AED)],
+                colors: [Color(0xFF0D5A41), Color(0xFF22C55E)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x33312E81),
+                  color: Color(0x33169B52),
                   blurRadius: 24,
                   offset: Offset(0, 14),
                 ),
@@ -63,7 +64,7 @@ class ReportsScreen extends StatelessWidget {
                       SizedBox(height: 8),
                       Text(
                         'Generate a PDF snapshot of expenses for customers, managers, or month-end review.',
-                        style: TextStyle(color: Color(0xFFE9D5FF), height: 1.5),
+                        style: TextStyle(color: Color(0xFFDFF8E8), height: 1.5),
                       ),
                     ],
                   ),
@@ -73,7 +74,7 @@ class ReportsScreen extends StatelessWidget {
                   onPressed: onExportPdf,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF5B21B6),
+                    foregroundColor: const Color(0xFF0D5A41),
                   ),
                   icon: const Icon(Icons.download_rounded),
                   label: const Text('Export PDF'),
@@ -140,7 +141,14 @@ class _ReportCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 20,
+              color: FintechPalette.primaryTextFor(context),
+            ),
+          ),
           const SizedBox(height: 18),
           child,
         ],
@@ -165,8 +173,14 @@ class _ReportRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(color: Colors.grey.shade600)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(label, style: TextStyle(color: FintechPalette.secondaryTextFor(context))),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: FintechPalette.primaryTextFor(context),
+            ),
+          ),
         ],
       ),
     );
@@ -184,9 +198,14 @@ class _ChecklistItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          const Icon(Icons.check_circle_rounded, color: Colors.deepPurple),
+          const Icon(Icons.check_circle_rounded, color: Color(0xFF4ADE80)),
           const SizedBox(width: 12),
-          Expanded(child: Text(label)),
+          Expanded(
+            child: Text(
+              label,
+              style: TextStyle(color: FintechPalette.primaryTextFor(context)),
+            ),
+          ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../ui/components/fintech_components.dart';
 import '../utils/helpers.dart';
 import 'expense_screen.dart';
 
@@ -27,6 +28,9 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryText = FintechPalette.primaryTextFor(context);
+    final secondaryText = FintechPalette.secondaryTextFor(context);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(28, 10, 28, 28),
       child: Wrap(
@@ -41,32 +45,35 @@ class SettingsScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white.withOpacity(0.06)
-                        : const Color(0xFFF5F3FF),
+                    color: const Color(0x1A86EFAC),
+                    border: Border.all(color: FintechPalette.strokeFor(context)),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
                     children: [
                       const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: Icon(Icons.account_balance_wallet_rounded, color: Colors.deepPurple),
+                        backgroundColor: Color(0x2286EFAC),
+                        child: Icon(Icons.account_balance_wallet_rounded, color: Color(0xFF86EFAC)),
                       ),
                       const SizedBox(width: 14),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Current monthly budget',
-                              style: TextStyle(fontWeight: FontWeight.w700),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: secondaryText,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               formatCurrency(budget),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: 22,
+                                color: primaryText,
                               ),
                             ),
                           ],
@@ -89,30 +96,50 @@ class SettingsScreen extends StatelessWidget {
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: const CircleAvatar(
-                    backgroundColor: Color(0xFFEDE9FE),
-                    child: Icon(Icons.person_rounded, color: Colors.deepPurple),
+                    backgroundColor: Color(0x2286EFAC),
+                    child: Icon(Icons.person_rounded, color: Color(0xFF86EFAC)),
                   ),
-                  title: Text(username),
-                  subtitle: const Text('Authenticated workspace user'),
+                  title: Text(
+                    username,
+                    style: TextStyle(color: primaryText),
+                  ),
+                  subtitle: Text(
+                    'Authenticated workspace user',
+                    style: TextStyle(color: secondaryText),
+                  ),
                   trailing: TextButton.icon(
                     onPressed: onLogout,
-                    icon: const Icon(Icons.logout_rounded),
-                    label: const Text('Logout'),
+                    icon: const Icon(Icons.logout_rounded, color: Color(0xFF4ADE80)),
+                    label: const Text('Logout', style: TextStyle(color: Color(0xFF4ADE80))),
                   ),
                 ),
-                const Divider(),
+                Divider(color: FintechPalette.strokeFor(context)),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Budget notifications'),
-                  subtitle: const Text('Show alerts when spending crosses the budget threshold.'),
+                  activeColor: const Color(0xFF22C55E),
+                  title: Text(
+                    'Budget notifications',
+                    style: TextStyle(color: primaryText),
+                  ),
+                  subtitle: Text(
+                    'Show alerts when spending crosses the budget threshold.',
+                    style: TextStyle(color: secondaryText),
+                  ),
                   value: notificationsEnabled,
                   onChanged: onNotificationsChanged,
                 ),
-                const Divider(),
+                Divider(color: FintechPalette.strokeFor(context)),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Weekly summary'),
-                  subtitle: const Text('Keep quick performance summaries enabled in the workspace.'),
+                  activeColor: const Color(0xFF22C55E),
+                  title: Text(
+                    'Weekly summary',
+                    style: TextStyle(color: primaryText),
+                  ),
+                  subtitle: Text(
+                    'Keep quick performance summaries enabled in the workspace.',
+                    style: TextStyle(color: secondaryText),
+                  ),
                   value: weeklySummary,
                   onChanged: onWeeklySummaryChanged,
                 ),
@@ -143,7 +170,14 @@ class _SettingsPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 20,
+              color: FintechPalette.primaryTextFor(context),
+            ),
+          ),
           const SizedBox(height: 20),
           child,
         ],

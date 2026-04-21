@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/components/fintech_components.dart';
 import '../utils/helpers.dart';
 import 'expense_screen.dart';
 
@@ -76,14 +77,14 @@ class AnalyticsScreen extends StatelessWidget {
                     icon: Icons.auto_graph_rounded,
                     title: 'AI insight',
                     description: aiInsight,
-                    color: const Color(0xFF5B21B6),
+                    color: const Color(0xFF86EFAC),
                   ),
                   const SizedBox(height: 16),
                   _InsightBlock(
                     icon: Icons.trending_up_rounded,
                     title: 'Spend forecast',
                     description: prediction,
-                    color: const Color(0xFF0F766E),
+                    color: const Color(0xFF4ADE80),
                   ),
                   const SizedBox(height: 16),
                   _InsightBlock(
@@ -91,7 +92,7 @@ class AnalyticsScreen extends StatelessWidget {
                     title: 'Budget consumption',
                     description:
                         '${(budgetProgress * 100).toStringAsFixed(0)}% of ${formatCurrency(budget)} consumed with total spend at ${formatCurrency(total)}.',
-                    color: const Color(0xFFB45309),
+                    color: const Color(0xFF22C55E),
                   ),
                 ],
               ),
@@ -180,9 +181,16 @@ class _AnalyticsPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 20,
+              color: FintechPalette.primaryTextFor(context),
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(subtitle, style: TextStyle(color: Colors.grey.shade600)),
+          Text(subtitle, style: TextStyle(color: FintechPalette.secondaryTextFor(context))),
           const SizedBox(height: 20),
           child,
         ],
@@ -211,6 +219,7 @@ class _InsightBlock extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: color.withOpacity(0.08),
+        border: Border.all(color: color.withOpacity(0.18)),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -227,7 +236,13 @@ class _InsightBlock extends StatelessWidget {
               children: [
                 Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color)),
                 const SizedBox(height: 6),
-                Text(description, style: const TextStyle(height: 1.4)),
+                Text(
+                  description,
+                  style: TextStyle(
+                    height: 1.4,
+                    color: FintechPalette.primaryTextFor(context),
+                  ),
+                ),
               ],
             ),
           ),
@@ -249,7 +264,7 @@ class _EmptyAnalytics extends StatelessWidget {
       child: Center(
         child: Text(
           message,
-          style: TextStyle(color: Colors.grey.shade600),
+          style: TextStyle(color: FintechPalette.secondaryTextFor(context)),
         ),
       ),
     );

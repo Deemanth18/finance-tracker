@@ -218,6 +218,11 @@ class DashboardHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final compact = MediaQuery.of(context).size.width < 900;
     final initials = username.isEmpty ? 'V' : username.trim()[0].toUpperCase();
+    final primaryText = FintechPalette.primaryTextFor(context);
+    final secondaryText = FintechPalette.secondaryTextFor(context);
+    final popupColor = Theme.of(context).brightness == Brightness.dark
+        ? const Color(0xFF0F4636)
+        : const Color(0xFFF7FFF8);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
@@ -237,10 +242,10 @@ class DashboardHeader extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Verdant Wealth',
                     style: TextStyle(
-                      color: FintechPalette.textPrimary,
+                      color: primaryText,
                       fontSize: 28,
                       fontWeight: FontWeight.w800,
                     ),
@@ -250,8 +255,8 @@ class DashboardHeader extends StatelessWidget {
                     compact
                         ? _pageTitle(selectedPage)
                         : '${_pageTitle(selectedPage)} for $username',
-                    style: const TextStyle(
-                      color: FintechPalette.textSecondary,
+                    style: TextStyle(
+                      color: secondaryText,
                       fontSize: 13,
                     ),
                   ),
@@ -266,8 +271,8 @@ class DashboardHeader extends StatelessWidget {
               },
             ),
             const SizedBox(width: 10),
-            PopupMenuButton<String>(
-              color: const Color(0xFF0F4636),
+              PopupMenuButton<String>(
+                color: popupColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               onSelected: (value) async {
                 if (value == 'refresh') {
@@ -280,21 +285,12 @@ class DashboardHeader extends StatelessWidget {
               },
               itemBuilder:
                   (context) => [
-                    const PopupMenuItem<String>(
-                      value: 'refresh',
-                      child: Text('Refresh', style: TextStyle(color: FintechPalette.textPrimary)),
-                    ),
+                    const PopupMenuItem<String>(value: 'refresh', child: Text('Refresh')),
                     PopupMenuItem<String>(
                       value: 'theme',
-                      child: Text(
-                        isDarkMode ? 'Switch to Light' : 'Switch to Dark',
-                        style: const TextStyle(color: FintechPalette.textPrimary),
-                      ),
+                      child: Text(isDarkMode ? 'Switch to Light' : 'Switch to Dark'),
                     ),
-                    const PopupMenuItem<String>(
-                      value: 'logout',
-                      child: Text('Logout', style: TextStyle(color: FintechPalette.textPrimary)),
-                    ),
+                    const PopupMenuItem<String>(value: 'logout', child: Text('Logout')),
                   ],
               child: Container(
                 width: 48,
@@ -529,20 +525,23 @@ class _InsightPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryText = FintechPalette.primaryTextFor(context);
+    final secondaryText = FintechPalette.secondaryTextFor(context);
+
     return GlassCard(
       borderRadius: 34,
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.auto_awesome_rounded, color: FintechPalette.mintSoft),
-              SizedBox(width: 10),
+              const Icon(Icons.auto_awesome_rounded, color: FintechPalette.mintSoft),
+              const SizedBox(width: 10),
               Text(
                 'AI Wealth Insight',
                 style: TextStyle(
-                  color: FintechPalette.textPrimary,
+                  color: primaryText,
                   fontSize: 22,
                   fontWeight: FontWeight.w800,
                 ),
@@ -552,8 +551,8 @@ class _InsightPanel extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             '"$aiInsight"',
-            style: const TextStyle(
-              color: FintechPalette.textSecondary,
+            style: TextStyle(
+              color: secondaryText,
               height: 1.6,
               fontSize: 14,
             ),
@@ -595,13 +594,17 @@ class _InsightStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final surfaceTint = Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : const Color(0xFF0D2B1F);
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.04),
+        color: surfaceTint.withOpacity(0.05),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: surfaceTint.withOpacity(0.10)),
       ),
       child: Row(
         children: [
@@ -609,7 +612,7 @@ class _InsightStrip extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.07),
+              color: surfaceTint.withOpacity(0.07),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Icon(icon, color: FintechPalette.mintSoft, size: 20),
@@ -621,8 +624,8 @@ class _InsightStrip extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    color: FintechPalette.textMuted,
+                  style: TextStyle(
+                    color: FintechPalette.mutedTextFor(context),
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                   ),
@@ -630,8 +633,8 @@ class _InsightStrip extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   value,
-                  style: const TextStyle(
-                    color: FintechPalette.textPrimary,
+                  style: TextStyle(
+                    color: FintechPalette.primaryTextFor(context),
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -657,14 +660,17 @@ class _ChartShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryText = FintechPalette.primaryTextFor(context);
+    final secondaryText = FintechPalette.secondaryTextFor(context);
+
     return GlassCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: FintechPalette.textPrimary,
+            style: TextStyle(
+              color: primaryText,
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
@@ -672,8 +678,8 @@ class _ChartShell extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: FintechPalette.textSecondary,
+            style: TextStyle(
+              color: secondaryText,
               height: 1.5,
               fontSize: 13,
             ),
@@ -946,14 +952,17 @@ class _TransactionTile extends StatelessWidget {
         createdAt == null
             ? 'Captured in your ledger'
             : '${_monthShort(createdAt!.month)} ${createdAt!.day}, ${createdAt!.year}';
+    final surfaceTint = Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : const Color(0xFF0D2B1F);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.04),
+        color: surfaceTint.withOpacity(0.05),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: surfaceTint.withOpacity(0.10)),
       ),
       child: Row(
         children: [
@@ -961,7 +970,7 @@ class _TransactionTile extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.07),
+              color: surfaceTint.withOpacity(0.07),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Icon(
@@ -976,8 +985,8 @@ class _TransactionTile extends StatelessWidget {
               children: [
                 Text(
                   category,
-                  style: const TextStyle(
-                    color: FintechPalette.textPrimary,
+                  style: TextStyle(
+                    color: FintechPalette.primaryTextFor(context),
                     fontWeight: FontWeight.w700,
                     fontSize: 15,
                   ),
@@ -985,8 +994,8 @@ class _TransactionTile extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    color: FintechPalette.textMuted,
+                  style: TextStyle(
+                    color: FintechPalette.mutedTextFor(context),
                     fontSize: 12,
                   ),
                 ),
@@ -995,8 +1004,8 @@ class _TransactionTile extends StatelessWidget {
           ),
           Text(
             '- ${formatCurrency(amount)}',
-            style: const TextStyle(
-              color: FintechPalette.textPrimary,
+            style: TextStyle(
+              color: FintechPalette.primaryTextFor(context),
               fontWeight: FontWeight.w800,
               fontSize: 16,
             ),
@@ -1018,6 +1027,10 @@ class _HeaderIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tint = Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : const Color(0xFF0D2B1F);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -1027,10 +1040,15 @@ class _HeaderIconButton extends StatelessWidget {
           width: 46,
           height: 46,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.06),
+            color: tint.withOpacity(0.06),
             borderRadius: BorderRadius.circular(18),
           ),
-          child: Icon(icon, color: FintechPalette.mintSoft),
+          child: Icon(
+            icon,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? FintechPalette.mintSoft
+                : const Color(0xFF0F8A4A),
+          ),
         ),
       ),
     );
@@ -1050,8 +1068,8 @@ class _EmptyState extends StatelessWidget {
         child: Text(
           message,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: FintechPalette.textSecondary,
+          style: TextStyle(
+            color: FintechPalette.secondaryTextFor(context),
             height: 1.5,
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../ui/components/fintech_components.dart';
 import '../utils/helpers.dart';
 
 class ExpenseScreen extends StatelessWidget {
@@ -42,21 +43,21 @@ class ExpenseScreen extends StatelessWidget {
                 value: expenses.length.toString(),
                 caption: 'Filtered expense rows currently in view',
                 icon: Icons.list_alt_rounded,
-                color: const Color(0xFF5B21B6),
+                color: const Color(0xFF86EFAC),
               ),
               _ExpenseMetricCard(
                 title: 'Filtered value',
                 value: formatCurrency(total),
                 caption: 'Running spend visible in the expense ledger',
                 icon: Icons.payments_rounded,
-                color: const Color(0xFF0F766E),
+                color: const Color(0xFF4ADE80),
               ),
               _ExpenseMetricCard(
                 title: 'Leading category',
                 value: topCategory,
                 caption: 'Category with the highest concentration of spend',
                 icon: Icons.local_fire_department_rounded,
-                color: const Color(0xFFB45309),
+                color: const Color(0xFF22C55E),
               ),
             ],
           ),
@@ -69,17 +70,24 @@ class ExpenseScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Expense ledger',
-                            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20,
+                              color: FintechPalette.primaryTextFor(context),
+                            ),
                           ),
                           SizedBox(height: 4),
                           Text(
                             'Capture, filter, and review every business expense in one place.',
+                            style: TextStyle(
+                              color: FintechPalette.secondaryTextFor(context),
+                            ),
                           ),
                         ],
                       ),
@@ -143,7 +151,7 @@ class ExpenseScreen extends StatelessWidget {
                     child: Text(
                       'No expenses match the current filters.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey.shade600),
+                      style: TextStyle(color: FintechPalette.secondaryTextFor(context)),
                     ),
                   )
                 else
@@ -168,9 +176,7 @@ class ExpenseScreen extends StatelessWidget {
                         child: DataTable(
                           columnSpacing: 32,
                           headingRowColor: MaterialStateProperty.all(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? const Color(0xFF1E293B)
-                                : const Color(0xFFF5F3FF),
+                            const Color(0x3322C55E),
                           ),
                           columns: const [
                             DataColumn(label: Text('Category')),
@@ -196,12 +202,24 @@ class ExpenseScreen extends StatelessWidget {
                                           color: categoryColor(category),
                                         ),
                                       ),
-                                      const SizedBox(width: 12),
-                                      Text(category),
+                                    const SizedBox(width: 12),
+                                      Text(
+                                        category,
+                                        style: TextStyle(
+                                          color: FintechPalette.primaryTextFor(context),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                                const DataCell(Text('Captured')),
+                                DataCell(
+                                  Text(
+                                    'Captured',
+                                    style: TextStyle(
+                                      color: FintechPalette.secondaryTextFor(context),
+                                    ),
+                                  ),
+                                ),
                                 DataCell(
                                   Text(
                                     formatCurrency(amount),
@@ -257,7 +275,12 @@ class ExpenseFormSheet extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
+          gradient: LinearGradient(
+            colors: FintechPalette.glassGradientFor(context),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          border: Border.all(color: FintechPalette.strokeFor(context)),
           borderRadius: BorderRadius.circular(28),
         ),
         child: Column(
@@ -271,7 +294,7 @@ class ExpenseFormSheet extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               'Log a transaction quickly without changing your API flow.',
-              style: TextStyle(color: Colors.grey.shade600),
+              style: TextStyle(color: FintechPalette.secondaryTextFor(context)),
             ),
             const SizedBox(height: 20),
             TextField(
@@ -340,7 +363,12 @@ class BudgetSettingsSheet extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
+          gradient: LinearGradient(
+            colors: FintechPalette.glassGradientFor(context),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          border: Border.all(color: FintechPalette.strokeFor(context)),
           borderRadius: BorderRadius.circular(28),
         ),
         child: Column(
@@ -405,11 +433,21 @@ class _ExpenseMetricCard extends StatelessWidget {
             child: Icon(icon, color: color),
           ),
           const SizedBox(height: 16),
-          Text(title, style: TextStyle(color: Colors.grey.shade600)),
+          Text(title, style: TextStyle(color: FintechPalette.secondaryTextFor(context))),
           const SizedBox(height: 6),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 24)),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 24,
+              color: FintechPalette.primaryTextFor(context),
+            ),
+          ),
           const SizedBox(height: 8),
-          Text(caption, style: TextStyle(color: Colors.grey.shade500, height: 1.4)),
+          Text(
+            caption,
+            style: TextStyle(color: FintechPalette.mutedTextFor(context), height: 1.4),
+          ),
         ],
       ),
     );
@@ -433,7 +471,12 @@ class _ExpenseListCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        gradient: LinearGradient(
+          colors: FintechPalette.glassGradientFor(context),
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        border: Border.all(color: FintechPalette.strokeFor(context)),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -444,11 +487,20 @@ class _ExpenseListCard extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(category, style: const TextStyle(fontWeight: FontWeight.w700)),
+            child: Text(
+              category,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: FintechPalette.primaryTextFor(context),
+              ),
+            ),
           ),
           Text(
             formatCurrency(amount),
-            style: const TextStyle(fontWeight: FontWeight.w700),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: FintechPalette.primaryTextFor(context),
+            ),
           ),
           IconButton(
             onPressed: onDelete,
@@ -462,18 +514,22 @@ class _ExpenseListCard extends StatelessWidget {
 }
 
 BoxDecoration panelDecoration(BuildContext context) {
-  final isDark = Theme.of(context).brightness == Brightness.dark;
   return BoxDecoration(
-    color: Theme.of(context).cardColor,
+    gradient: LinearGradient(
+      colors: FintechPalette.glassGradientFor(context),
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+    border: Border.all(color: FintechPalette.strokeFor(context)),
     borderRadius: const BorderRadius.all(Radius.circular(28)),
-    boxShadow: isDark
-        ? null
-        : const [
-            BoxShadow(
-              color: Color(0x140F172A),
-              blurRadius: 20,
-              offset: Offset(0, 12),
-            ),
-          ],
+    boxShadow: [
+      BoxShadow(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0x22000000)
+            : const Color(0x12072A1F),
+        blurRadius: 20,
+        offset: const Offset(0, 12),
+      ),
+    ],
   );
 }
