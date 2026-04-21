@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../layout/main_layout.dart';
-import '../ui/components/app_logo.dart';
+import '../ui/components/fintech_components.dart';
 import '../ui/components/glass_panel.dart';
 
 class Sidebar extends StatelessWidget {
@@ -31,7 +31,6 @@ class Sidebar extends StatelessWidget {
       _SidebarItemData(AppPage.settings, 'Settings', Icons.settings_rounded),
     ];
 
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final textColor = FintechPalette.primaryTextFor(context);
     final mutedText = FintechPalette.secondaryTextFor(context);
 
