@@ -197,7 +197,7 @@ class _MainLayoutState extends State<MainLayout> {
       drawer: isDesktop
           ? null
           : Drawer(
-              backgroundColor: const Color(0xFF073728),
+              backgroundColor: Theme.of(context).colorScheme.surface,
               child: Sidebar(
                 isCollapsed: false,
                 selectedPage: selectedPage,
@@ -206,9 +206,9 @@ class _MainLayoutState extends State<MainLayout> {
               ),
             ),
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: FintechPalette.pageGradient,
+            colors: FintechPalette.pageGradientFor(context),
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -227,7 +227,7 @@ class _MainLayoutState extends State<MainLayout> {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: RadialGradient(
-                          colors: [Color(0x4422C55E), Colors.transparent],
+                          colors: [Color(0x3322C55E), Colors.transparent],
                         ),
                       ),
                     ),

@@ -32,6 +32,8 @@ class Sidebar extends StatelessWidget {
     ];
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = FintechPalette.primaryTextFor(context);
+    final mutedText = FintechPalette.secondaryTextFor(context);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 260),
@@ -49,7 +51,7 @@ class Sidebar extends StatelessWidget {
                   isCollapsed
                       ? Icons.keyboard_double_arrow_right_rounded
                       : Icons.keyboard_double_arrow_left_rounded,
-                  color: isDark ? Colors.white : const Color(0xFF4338CA),
+                  color: textColor,
                 ),
               ),
             ),
@@ -75,7 +77,7 @@ class Sidebar extends StatelessWidget {
                       Text(
                         'Cashflow health',
                         style: TextStyle(
-                          color: isDark ? Colors.white : const Color(0xFF1E1B4B),
+                          color: textColor,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -83,7 +85,7 @@ class Sidebar extends StatelessWidget {
                       Text(
                         'Track allowances, course spending, travel, and study-life costs in one calm workspace.',
                         style: TextStyle(
-                          color: isDark ? Colors.white70 : const Color(0xFF6B7280),
+                          color: mutedText,
                           height: 1.4,
                         ),
                       ),
@@ -121,6 +123,10 @@ class _SidebarTileState extends State<_SidebarTile> {
   @override
   Widget build(BuildContext context) {
     final active = widget.isSelected || isHovering;
+    final baseColor = FintechPalette.primaryTextFor(context);
+    final highlightColor = Theme.of(context).brightness == Brightness.dark
+        ? const Color(0xFF86EFAC)
+        : const Color(0xFF0F8A4A);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -131,12 +137,12 @@ class _SidebarTileState extends State<_SidebarTile> {
           duration: const Duration(milliseconds: 220),
           decoration: BoxDecoration(
             color: active
-                ? const Color(0xFF6C63FF).withOpacity(widget.isSelected ? 0.28 : 0.16)
+                ? highlightColor.withOpacity(widget.isSelected ? 0.18 : 0.10)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
               color: widget.isSelected
-                  ? const Color(0xFF8B85FF).withOpacity(0.40)
+                  ? highlightColor.withOpacity(0.32)
                   : Colors.transparent,
             ),
           ),
@@ -155,7 +161,7 @@ class _SidebarTileState extends State<_SidebarTile> {
                         ? MainAxisAlignment.center
                         : MainAxisAlignment.start,
                     children: [
-                      Icon(widget.data.icon, color: active ? const Color(0xFF6C63FF) : null),
+                      Icon(widget.data.icon, color: active ? highlightColor : baseColor),
                       if (!widget.isCollapsed && constraints.maxWidth > 40) ...[
                         const SizedBox(width: 14),
                         Expanded(
@@ -165,7 +171,7 @@ class _SidebarTileState extends State<_SidebarTile> {
                             overflow: TextOverflow.fade,
                             softWrap: false,
                             style: TextStyle(
-                              color: active ? const Color(0xFF6C63FF) : null,
+                              color: active ? highlightColor : baseColor,
                               fontWeight: widget.isSelected ? FontWeight.w700 : FontWeight.w500,
                             ),
                           ),

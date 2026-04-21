@@ -39,6 +39,81 @@ class FintechPalette {
     Color(0xFF15803D),
     Color(0xFF86EFAC),
   ];
+
+  static bool isDark(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark;
+
+  static List<Color> pageGradientFor(BuildContext context) {
+    if (isDark(context)) {
+      return const [
+        Color(0xFF041D16),
+        Color(0xFF0A3D2E),
+        Color(0xFF0E5C43),
+      ];
+    }
+
+    return const [
+      Color(0xFFF7FFF8),
+      Color(0xFFE8F7EE),
+      Color(0xFFD2F1DD),
+    ];
+  }
+
+  static List<Color> authGradientFor(BuildContext context) {
+    if (isDark(context)) {
+      return const [
+        Color(0xFF041D16),
+        Color(0xFF0B3A2D),
+        Color(0xFF12533D),
+      ];
+    }
+
+    return const [
+      Color(0xFFF8FFFA),
+      Color(0xFFE4F7EA),
+      Color(0xFFCDEFD8),
+    ];
+  }
+
+  static List<Color> glassGradientFor(BuildContext context) {
+    if (isDark(context)) {
+      return [
+        const Color(0xAA103D2E),
+        const Color(0x99217152),
+      ];
+    }
+
+    return [
+      Colors.white.withOpacity(0.86),
+      const Color(0xFFE7F8EC).withOpacity(0.88),
+    ];
+  }
+
+  static List<Color> panelGradientFor(BuildContext context) {
+    if (isDark(context)) {
+      return [
+        surfaceLight,
+        surface.withOpacity(0.92),
+      ];
+    }
+
+    return [
+      Colors.white.withOpacity(0.92),
+      const Color(0xFFE5F5EA).withOpacity(0.96),
+    ];
+  }
+
+  static Color strokeFor(BuildContext context) =>
+      isDark(context) ? stroke : const Color(0x220E5C43);
+
+  static Color primaryTextFor(BuildContext context) =>
+      isDark(context) ? textPrimary : const Color(0xFF0D2B1F);
+
+  static Color secondaryTextFor(BuildContext context) =>
+      isDark(context) ? textSecondary : const Color(0xFF335C49);
+
+  static Color mutedTextFor(BuildContext context) =>
+      isDark(context) ? textMuted : const Color(0xFF567867);
 }
 
 class GlassCard extends StatelessWidget {
@@ -59,6 +134,12 @@ class GlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final panelGradient = gradient ?? LinearGradient(
+      colors: FintechPalette.glassGradientFor(context),
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+
     final panel = ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
       child: BackdropFilter(
@@ -67,18 +148,14 @@ class GlassCard extends StatelessWidget {
           duration: const Duration(milliseconds: 220),
           padding: padding,
           decoration: BoxDecoration(
-            gradient:
-                gradient ??
-                const LinearGradient(
-                  colors: FintechPalette.cardGradient,
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+            gradient: panelGradient,
             borderRadius: BorderRadius.circular(borderRadius),
-            border: Border.all(color: FintechPalette.stroke),
-            boxShadow: const [
+            border: Border.all(color: FintechPalette.strokeFor(context)),
+            boxShadow: [
               BoxShadow(
-                color: Color(0x33000000),
+                color: FintechPalette.isDark(context)
+                    ? const Color(0x33000000)
+                    : const Color(0x14072A1F),
                 blurRadius: 26,
                 offset: Offset(0, 18),
               ),
@@ -192,6 +269,10 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryText = FintechPalette.primaryTextFor(context);
+    final mutedText = FintechPalette.mutedTextFor(context);
+    final secondaryText = FintechPalette.secondaryTextFor(context);
+
     return GlassCard(
       padding: const EdgeInsets.all(18),
       borderRadius: 24,
@@ -210,8 +291,8 @@ class StatCard extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             title.toUpperCase(),
-            style: const TextStyle(
-              color: FintechPalette.textMuted,
+            style: TextStyle(
+              color: mutedText,
               fontSize: 11,
               fontWeight: FontWeight.w700,
               letterSpacing: 1.1,
@@ -220,8 +301,8 @@ class StatCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             value,
-            style: const TextStyle(
-              color: FintechPalette.textPrimary,
+            style: TextStyle(
+              color: primaryText,
               fontSize: 24,
               fontWeight: FontWeight.w800,
             ),
@@ -230,8 +311,8 @@ class StatCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               subtitle!,
-              style: const TextStyle(
-                color: FintechPalette.textSecondary,
+              style: TextStyle(
+                color: secondaryText,
                 height: 1.4,
                 fontSize: 12,
               ),

@@ -18,6 +18,8 @@ class GlassPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gradientColors = FintechPalette.panelGradientFor(context);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
       child: BackdropFilter(
@@ -26,20 +28,19 @@ class GlassPanel extends StatelessWidget {
           padding: padding,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                FintechPalette.surfaceLight,
-                FintechPalette.surface.withOpacity(0.92),
-              ],
+              colors: gradientColors,
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
-              color: FintechPalette.stroke,
+              color: FintechPalette.strokeFor(context),
             ),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Color(0x29000000),
+                color: FintechPalette.isDark(context)
+                    ? const Color(0x29000000)
+                    : const Color(0x12072A1F),
                 blurRadius: 24,
                 offset: const Offset(0, 12),
               ),

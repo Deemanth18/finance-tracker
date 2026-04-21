@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_logo.dart';
+import '../components/fintech_components.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -39,11 +40,14 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final textColor = FintechPalette.primaryTextFor(context);
+    final mutedText = FintechPalette.secondaryTextFor(context);
+
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFF5F7FB), Color(0xFFEDE9FE)],
+            colors: FintechPalette.authGradientFor(context),
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -57,24 +61,23 @@ class _SplashScreenState extends State<SplashScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const StudentFinanceLogo(
-                    size: 84,
+                    size: 180,
                     showLabel: false,
-                    foregroundColor: Colors.white,
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
+                  const SizedBox(height: 28),
+                  Text(
                     'Student Finance Tracker',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
-                      color: Color(0xFF1E1B4B),
+                      color: textColor,
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Plan smarter, spend calmer, study better.',
+                    'Track expenses with a clean student-first workspace.',
                     style: TextStyle(
-                      color: Colors.grey.shade700,
+                      color: mutedText,
                       fontSize: 15,
                     ),
                   ),

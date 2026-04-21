@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static String get baseUrl => 'https://your-app.onrender.com';
+  static String get baseUrl => 'https://finance-tracker-vynh.onrender.com';
   static const String _tokenKey = 'auth_token';
   static const String _usernameKey = 'auth_username';
 
@@ -28,27 +28,27 @@ class ApiService {
     await prefs.remove(_usernameKey);
   }
 
-  static Future<Map<String, dynamic>> register(String username, String password) async {
+  static Future<Map<String, dynamic>> register(
+    String username,
+    String password,
+  ) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register'),
       headers: _jsonHeaders(),
-      body: jsonEncode({
-        'username': username.trim(),
-        'password': password,
-      }),
+      body: jsonEncode({'username': username.trim(), 'password': password}),
     );
 
     return _saveAuthFromResponse(response);
   }
 
-  static Future<Map<String, dynamic>> login(String username, String password) async {
+  static Future<Map<String, dynamic>> login(
+    String username,
+    String password,
+  ) async {
     final response = await http.post(
       Uri.parse('$baseUrl/login'),
       headers: _jsonHeaders(),
-      body: jsonEncode({
-        'username': username.trim(),
-        'password': password,
-      }),
+      body: jsonEncode({'username': username.trim(), 'password': password}),
     );
 
     return _saveAuthFromResponse(response);
@@ -96,7 +96,9 @@ class ApiService {
     };
   }
 
-  static Future<Map<String, dynamic>> _saveAuthFromResponse(http.Response response) async {
+  static Future<Map<String, dynamic>> _saveAuthFromResponse(
+    http.Response response,
+  ) async {
     final data = Map<String, dynamic>.from(_decodeResponse(response));
     final token = data['token']?.toString();
     final user = Map<String, dynamic>.from(data['user'] as Map);

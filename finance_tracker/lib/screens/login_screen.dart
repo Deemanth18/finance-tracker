@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../services/api_service.dart';
 import '../ui/components/app_logo.dart';
+import '../ui/components/fintech_components.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 16),
               Text(
                 _error!,
-                style: const TextStyle(color: Colors.redAccent),
+                style: const TextStyle(color: Color(0xFFDC2626)),
               ),
             ],
             const SizedBox(height: 24),
@@ -146,13 +147,14 @@ class _AuthScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = FintechPalette.primaryTextFor(context);
+    final mutedText = FintechPalette.secondaryTextFor(context);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: isDark
-                ? const [Color(0xFF0F172A), Color(0xFF1E1B4B)]
-                : const [Color(0xFFF5F3FF), Color(0xFFE0E7FF)],
+            colors: FintechPalette.authGradientFor(context),
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -166,13 +168,14 @@ class _AuthScaffold extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(32),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Color(0x140F172A),
+                    color: isDark ? const Color(0x22000000) : const Color(0x14072A1F),
                     blurRadius: 24,
                     offset: Offset(0, 12),
                   ),
                 ],
+                border: Border.all(color: FintechPalette.strokeFor(context)),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -184,8 +187,8 @@ class _AuthScaffold extends StatelessWidget {
                       StudentFinanceLogo(
                         size: 56,
                         title: 'Student Finance',
-                        subtitle: 'SaaS budgeting',
-                        foregroundColor: isDark ? Colors.white : const Color(0xFF111827),
+                        subtitle: 'Personal expense tracker',
+                        foregroundColor: textColor,
                       ),
                       IconButton(
                         onPressed: onToggleTheme,
@@ -193,6 +196,7 @@ class _AuthScaffold extends StatelessWidget {
                           themeMode == ThemeMode.dark
                               ? Icons.light_mode_rounded
                               : Icons.dark_mode_rounded,
+                          color: textColor,
                         ),
                       ),
                     ],
@@ -200,12 +204,16 @@ class _AuthScaffold extends StatelessWidget {
                   const SizedBox(height: 24),
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                      color: textColor,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     subtitle,
-                    style: TextStyle(color: Colors.grey.shade600, height: 1.5),
+                    style: TextStyle(color: mutedText, height: 1.5),
                   ),
                   const SizedBox(height: 28),
                   child,
@@ -213,7 +221,7 @@ class _AuthScaffold extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(footerText, style: TextStyle(color: Colors.grey.shade600)),
+                      Text(footerText, style: TextStyle(color: mutedText)),
                       TextButton(
                         onPressed: onFooterPressed,
                         child: Text(footerAction),

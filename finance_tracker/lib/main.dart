@@ -56,9 +56,11 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
       ).copyWith(
         primary: FintechPalette.mint,
         secondary: const Color(0xFF16A34A),
-        surface: const Color(0xFFF3FFF7),
+        surface: const Color(0xFFFCFFFD),
+        onSurface: const Color(0xFF0D2B1F),
+        onPrimary: Colors.white,
       ),
-      scaffoldBackgroundColor: FintechPalette.deepGreen,
+      scaffoldBackgroundColor: const Color(0xFFF5FFF8),
       cardColor: Colors.white,
       fontFamily: 'Segoe UI',
       appBarTheme: const AppBarTheme(
@@ -76,20 +78,22 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white.withOpacity(0.10),
+        fillColor: Colors.white.withOpacity(0.92),
         contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(22),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.16)),
+          borderSide: const BorderSide(color: Color(0x330F5C45)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(22),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.16)),
+          borderSide: const BorderSide(color: Color(0x330F5C45)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(22),
           borderSide: const BorderSide(color: FintechPalette.mint, width: 1.4),
         ),
+        labelStyle: const TextStyle(color: Color(0xFF335C49)),
+        prefixIconColor: const Color(0xFF335C49),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -110,6 +114,7 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
       colorScheme: lightTheme.colorScheme.copyWith(
         brightness: Brightness.dark,
         surface: const Color(0xFF0F4636),
+        onSurface: FintechPalette.textPrimary,
       ),
       scaffoldBackgroundColor: FintechPalette.deepGreen,
       cardTheme: CardThemeData(
@@ -120,6 +125,23 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
           borderRadius: BorderRadius.circular(28),
         ),
       ),
+      inputDecorationTheme: lightTheme.inputDecorationTheme.copyWith(
+        fillColor: Colors.white.withOpacity(0.10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: BorderSide(color: Colors.white.withOpacity(0.16)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: BorderSide(color: Colors.white.withOpacity(0.16)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: const BorderSide(color: FintechPalette.mint, width: 1.4),
+        ),
+        labelStyle: const TextStyle(color: FintechPalette.textSecondary),
+        prefixIconColor: FintechPalette.textSecondary,
+      ),
     );
 
     return MaterialApp(
@@ -127,11 +149,16 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
       title: 'Student Finance Tracker',
       theme: lightTheme.copyWith(
         textTheme: lightTheme.textTheme.apply(
+          bodyColor: const Color(0xFF0D2B1F),
+          displayColor: const Color(0xFF0D2B1F),
+        ),
+      ),
+      darkTheme: darkTheme.copyWith(
+        textTheme: darkTheme.textTheme.apply(
           bodyColor: FintechPalette.textPrimary,
           displayColor: FintechPalette.textPrimary,
         ),
       ),
-      darkTheme: darkTheme,
       themeMode: _themeMode,
       home: AppBootstrapper(
         themeMode: _themeMode,
