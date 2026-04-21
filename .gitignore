@@ -1,0 +1,12 @@
+backend/node_modules/
+backend/.env
+
+finance_tracker/.dart_tool/
+finance_tracker/.flutter-plugins
+finance_tracker/.flutter-plugins-dependencies
+finance_tracker/.pub-cache/
+finance_tracker/.pub/
+finance_tracker/build/
+
+.DS_Store
+*.log
