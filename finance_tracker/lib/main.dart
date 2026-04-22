@@ -23,7 +23,7 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
   static const String _themeKey = 'theme_mode';
   ThemeMode _themeMode = ThemeMode.light;
 
-  @override2
+  @override
   void initState() {
     super.initState();
     _loadThemeMode();
@@ -31,7 +31,7 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
 
   Future<void> _loadThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getString(_themeKey);
+    final saved = prefs.getString(_themeKey);r
     if (!mounted) return;
     setState(() {
       _themeMode = saved == 'dark' ? ThemeMode.dark : ThemeMode.light;
@@ -68,6 +68,23 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
           ),
       scaffoldBackgroundColor: const Color(0xFFF5FFF8),
       cardColor: Colors.white,
+      dialogTheme: DialogThemeData(
+        backgroundColor: const Color(0xFFF7FFF9),
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        titleTextStyle: const TextStyle(
+          color: Color(0xFF0D2B1F),
+          fontSize: 18,
+          fontWeight: FontWeight.w800,
+        ),
+        contentTextStyle: const TextStyle(
+          color: Color(0xFF335C49),
+          fontSize: 14,
+          height: 1.5,
+        ),
+      ),
       fontFamily: 'Segoe UI',
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -122,6 +139,12 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
           textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: const Color(0xFF16A34A),
+          textStyle: const TextStyle(fontWeight: FontWeight.w700),
+        ),
+      ),
     );
 
     final darkTheme = lightTheme.copyWith(
@@ -132,6 +155,23 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
         onSurface: FintechPalette.textPrimary,
       ),
       scaffoldBackgroundColor: FintechPalette.deepGreen,
+      dialogTheme: DialogThemeData(
+        backgroundColor: const Color(0xFF123F31),
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        titleTextStyle: const TextStyle(
+          color: FintechPalette.textPrimary,
+          fontSize: 18,
+          fontWeight: FontWeight.w800,
+        ),
+        contentTextStyle: const TextStyle(
+          color: FintechPalette.textSecondary,
+          fontSize: 14,
+          height: 1.5,
+        ),
+      ),
       cardTheme: CardThemeData(
         color: const Color(0xFF0F4636),
         elevation: 0,
@@ -161,6 +201,12 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
         menuStyle: MenuStyle(
           backgroundColor: WidgetStatePropertyAll(Color(0xFF103D2E)),
           surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: FintechPalette.mintSoft,
+          textStyle: const TextStyle(fontWeight: FontWeight.w700),
         ),
       ),
     );

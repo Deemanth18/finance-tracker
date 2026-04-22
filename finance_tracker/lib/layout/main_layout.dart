@@ -163,6 +163,29 @@ class _MainLayoutState extends State<MainLayout> {
     );
   }
 
+  void optimizeStrategy(String topCategory) {
+    final hasCategoryFocus = topCategory.isNotEmpty && topCategory != 'No data';
+
+    setState(() {
+      selectedPage = AppPage.expense;
+      filterCategory = hasCategoryFocus ? topCategory : 'All';
+      searchController.clear();
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF123F31),
+        content: Text(
+          hasCategoryFocus
+              ? 'Reviewing $topCategory expenses so you can trim the biggest cost first.'
+              : 'Opening your expense ledger so you can review recent spending.',
+          style: const TextStyle(color: FintechPalette.textPrimary),
+        ),
+      ),
+    );
+  }
+
   void onNavSelected(AppPage page) {
     setState(() => selectedPage = page);
     Navigator.of(context).maybePop();
@@ -349,7 +372,7 @@ class _MainLayoutState extends State<MainLayout> {
           prediction: getPrediction(expenses),
           badge: getBadge(total),
           topCategory: topCategory,
-          onAddExpense: showAddExpenseSheet,
+          onOptimizeStrategy: () => optimizeStrategy(topCategory),
         );
       case AppPage.expense:
         return ExpenseScreen(

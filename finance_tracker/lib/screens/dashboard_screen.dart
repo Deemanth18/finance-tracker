@@ -22,7 +22,7 @@ class DashboardScreen extends StatelessWidget {
     required this.prediction,
     required this.badge,
     required this.topCategory,
-    required this.onAddExpense,
+    required this.onOptimizeStrategy,
   });
 
   final bool isLoading;
@@ -37,7 +37,7 @@ class DashboardScreen extends StatelessWidget {
   final String prediction;
   final String badge;
   final String topCategory;
-  final VoidCallback onAddExpense;
+  final VoidCallback onOptimizeStrategy;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class DashboardScreen extends StatelessWidget {
                         aiInsight: aiInsight,
                         prediction: prediction,
                         badge: badge,
-                        onAddExpense: onAddExpense,
+                        onOptimizeStrategy: onOptimizeStrategy,
                       ),
                     ),
                   ],
@@ -515,13 +515,13 @@ class _InsightPanel extends StatelessWidget {
     required this.aiInsight,
     required this.prediction,
     required this.badge,
-    required this.onAddExpense,
+    required this.onOptimizeStrategy,
   });
 
   final String aiInsight;
   final String prediction;
   final String badge;
-  final VoidCallback onAddExpense;
+  final VoidCallback onOptimizeStrategy;
 
   @override
   Widget build(BuildContext context) {
@@ -573,7 +573,7 @@ class _InsightPanel extends StatelessWidget {
           GradientButton(
             label: 'Optimize Strategy',
             icon: Icons.arrow_forward_rounded,
-            onPressed: onAddExpense,
+            onPressed: onOptimizeStrategy,
           ),
         ],
       ),
