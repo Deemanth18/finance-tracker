@@ -31,7 +31,7 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
 
   Future<void> _loadThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    final saved = prefs.getString(_themeKey);r
+    final saved = prefs.getString(_themeKey);
     if (!mounted) return;
     setState(() {
       _themeMode = saved == 'dark' ? ThemeMode.dark : ThemeMode.light;
@@ -71,9 +71,7 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
       dialogTheme: DialogThemeData(
         backgroundColor: const Color(0xFFF7FFF9),
         surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         titleTextStyle: const TextStyle(
           color: Color(0xFF0D2B1F),
           fontSize: 18,
@@ -158,9 +156,7 @@ class _SmartFinanceTrackerAppState extends State<SmartFinanceTrackerApp> {
       dialogTheme: DialogThemeData(
         backgroundColor: const Color(0xFF123F31),
         surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         titleTextStyle: const TextStyle(
           color: FintechPalette.textPrimary,
           fontSize: 18,

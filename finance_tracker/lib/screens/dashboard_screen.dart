@@ -732,10 +732,14 @@ class _TrendLineChart extends StatelessWidget {
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 34,
+              reservedSize: 42,
+              interval: 1,
               getTitlesWidget: (value, meta) {
                 final index = value.toInt();
                 if (index < 0 || index >= points.labels.length) {
+                  return const SizedBox.shrink();
+                }
+                if (!_shouldShowTrendLabel(index, points.labels.length)) {
                   return const SizedBox.shrink();
                 }
                 return Padding(
@@ -842,6 +846,12 @@ _TrendData _buildTrendPoints(List expenses) {
     labels: labels.isEmpty ? const ['Start'] : labels,
     maxY: running <= 0 ? 1000 : running * 1.2,
   );
+}
+
+bool _shouldShowTrendLabel(int index, int total) {
+  if (total <= 3) return true;
+  if (index == 0 || index == total - 1) return true;
+  return index == total ~/ 2;
 }
 
 String _monthShort(int month) {
