@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/analytics_screen.dart';
 import '../screens/dashboard_screen.dart';
@@ -52,7 +53,7 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   void initState() {
     super.initState();
-    fetchExpenses();
+    _initializeDashboard();
   }
 
   @override
@@ -61,6 +62,29 @@ class _MainLayoutState extends State<MainLayout> {
     budgetController.dispose();
     searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> _initializeDashboard() async {
+    await _loadBudget();
+    await fetchExpenses();
+  }
+
+  String get _budgetPreferenceKey =>
+      'monthly_budget_${widget.username.trim().toLowerCase()}';
+
+  Future<void> _loadBudget() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedBudget = prefs.getDouble(_budgetPreferenceKey);
+    if (!mounted || savedBudget == null) return;
+
+    setState(() {
+      budget = savedBudget;
+    });
+  }
+
+  Future<void> _saveBudget() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble(_budgetPreferenceKey, budget);
   }
 
   Future<void> fetchExpenses() async {
@@ -93,10 +117,16 @@ class _MainLayoutState extends State<MainLayout> {
     await fetchExpenses();
   }
 
-  void updateBudget() {
+  Future<void> updateBudget() async {
+    final parsedBudget = double.tryParse(budgetController.text.trim());
+    if (parsedBudget == null) return;
+
     setState(() {
-      budget = double.tryParse(budgetController.text.trim()) ?? budget;
+      budget = parsedBudget;
     });
+
+    await _saveBudget();
+    if (!mounted) return;
     Navigator.of(context).maybePop();
     _checkBudgetAlert();
   }
